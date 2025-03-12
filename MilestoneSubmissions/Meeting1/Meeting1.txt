@@ -1,0 +1,33 @@
+Team Number: 4
+Team Name: P4rking
+Team Members | Github Usernames | Emails:
+    Timothy Bermon | timberman05 | tibe9793@colorado.edu
+    Sean Broderick | seandbroderick | sebr2861@colorado.edu
+    Israt Jaman | israt-jaman | israt.jaman@colorado.edu
+    Logan Kernan | loke1941 | loke1941@colorado.edu
+    Razvan Maioru | razvanmaioru9542 | rama9542@colorado.edu
+    Ethan Meli | EthanMeli | etme6835@colorado.edu
+
+Project Name: P4rk
+
+Application Description: Our application is going to provide an interactive map that allows users to find the best available parking at any time. Users can share their location, type in an event center, or city location to find parking results in the respective area.
+
+Users will use our interactive map and filters to find the best parking location that suits their individual needs. They can look at and leave reviews for each parking location that is shown. These reviews will be linked to their profiles, which they may access at any time.
+
+Target Audience: Our target audience encompasses city dwellers and those looking for an efficient way to find parking in nearby areas. Event goers for people interested in concerts, sports, or even a night out in town, we service those who don’t want to deal with the hassle of searching across multiple sites for a spot to park.
+
+Vision Statement: For people who hate wasting time waiting around for parking spots, P4rk is an app that finds cheap parking nearby quickly. Unlike ParkMobile, P4rk searches for all parking lots in your area, not just sponsored lots.
+
+Version Control: https://github.com/seandbroderick/csci-3308-group-project
+ 
+Development Methodology: Evaluate each of our standings and how progress is going in meetings in order to adjust our goals based on how much time we have and how quickly progress is moving.
+
+Communication Plan: We are using discord for most inquiries, we also have a text message group chat for emergencies/inquiries that need a quick response.
+
+Meeting Plan: 
+	Team Meeting: 11:00 Saturdays (on discord)
+Weekly Meeting With TA: 6:00 Wednesdays (on zoom)
+
+Use Case Diagram: Linked in folder
+
+Wireframes: Linked in folder
