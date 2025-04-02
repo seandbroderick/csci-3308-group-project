@@ -13,6 +13,21 @@ app.engine('hbs', exphbs.engine({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
+app.get('/register', (req, res) => {
+  res.render('pages/register');
+});
+
+app.post('/register', async (req, res) => {
+  //TODO (Authentication)
+  //on sucessful registration, redirect to main/map page
+  //on failure, redirect to register page
+  //on username/email taken, redirect to login page
+});
+
 app.get('/parking', (req, res) => {
   // Sample parking data, this needs to be replaced with the actual API calls
   const parkingLocations = [
