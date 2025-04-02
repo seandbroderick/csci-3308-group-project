@@ -1,1 +1,5 @@
 .env
+.vscode
+ProjectSourceCode/src/node_modules/
+ProjectSourceCode/src/package-lock.json
+ProjectSourceCode/src/.env

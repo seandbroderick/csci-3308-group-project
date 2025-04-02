@@ -1,0 +1,21 @@
+{{#contentFor "head"}}
+  <link rel="stylesheet" href="/styles/map.css">
+{{/contentFor}}
+
+{{#contentFor "main"}}
+  <h1>Find Parking Locations</h1>
+  <div class="search-container">
+    <input type="text" id="locationSearch" placeholder="Search for parking...">
+  </div>
+  
+  {{> map }} <!-- The partial now handles the API key -->
+  
+  <div class="parking-list">
+    {{#each parkingLocations}}
+      <div class="parking-item" data-lat="{{lat}}" data-lng="{{lng}}">
+        <h3>{{name}}</h3>
+        <p>Available spots: {{available}}</p>
+      </div>
+    {{/each}}
+  </div>
+{{/contentFor}}

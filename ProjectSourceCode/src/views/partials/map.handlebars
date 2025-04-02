@@ -1,0 +1,49 @@
+<div class="map-container">
+  <div id="parkingMap" style="height: 500px; width: 100%;"></div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!"{{mapApiKey}}") {
+        console.error('Google Maps API key is missing');
+        document.getElementById('parkingMap').innerHTML = 
+          '<div class="map-error">Map unavailable - API key missing</div>';
+        return;
+      }
+
+      const config = {
+        apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
+        center: { lat: {{defaultLat}}, lng: {{defaultLng}} },
+        zoom: {{defaultZoom}},
+      };
+
+      try {
+        const { Map } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+        const map = new Map(document.getElementById("parkingMap"), {
+          center: config.center,
+          zoom: config.zoom,
+          mapId: "PARKING_LOCATIONS_MAP",
+        });
+
+        const parkingLocations = {{{json parkingLocations}}};
+        
+        parkingLocations.forEach(location => {
+          const marker = new AdvancedMarkerElement({
+            map,
+            position: { lat: location.lat, lng: location.lng },
+            title: location.name,
+          });
+          
+          marker.addListener('click', () => {
+            console.log('Parking location clicked:', location);
+          });
+        });
+      } catch (error) {
+        console.error('Error loading Google Maps:', error);
+        document.getElementById('parkingMap').innerHTML = 
+          '<div class="map-error">Error loading map</div>';
+      }
+    });
+  </script>
+</div>
