@@ -5,13 +5,52 @@ require('dotenv').config();
 
 const app = express();
 
+
+
+
+
+
+// database configuration
+const dbConfig = {
+  host: 'db', // the database server
+  port: 5432, // the database port
+  database: process.env.POSTGRES_DB, // the database name
+  user: process.env.POSTGRES_USER, // the user account to connect with
+  password: process.env.POSTGRES_PASSWORD, // the password of the user account
+};
+
+const db = pgp(dbConfig);
+
+db.connect()
+  .then(obj => {
+    console.log('Database connection successful'); // you can view this message in the docker compose logs
+    obj.done(); // success, release the connection;
+  })
+  .catch(error => {
+    console.log('ERROR:', error.message || error);
+  });
+
+
+
+
+
+
+
+
+
+
 app.engine('hbs', exphbs.engine({
   extname: '.hbs',
   defaultLayout: 'main',
+  layoutsDir: path.join(__dirname, '/views/layouts'),
   partialsDir: path.join(__dirname, 'views/partials')
 }));
+app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(bodyParser.json());
+
+
 
 app.get('/', (req, res) => {
   res.redirect('/login');
@@ -22,10 +61,17 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  //TODO (Authentication)
-  //on sucessful registration, redirect to main/map page
-  //on failure, redirect to register page
-  //on username/email taken, redirect to login page
+    const { username, password } = req.body;
+    try {
+        const hash = await bcrypt.hash(password, 10);
+        const result = await db.none(
+            'INSERT INTO users(username, password) VALUES($1, $2)', [username, hash]
+        );
+        res.redirect('/login');
+    } catch (error){
+        console.error("Error inserting user into the database: ", error.message);
+        res.redirect('/register');
+    }
 });
 
 app.get('/login', (req, res) => {
@@ -33,10 +79,47 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-  //TODO (Authentication)
-  //on sucessful login, redirect to main/map page
-  //on failure, redirect to login page
+    const { username, password } = req.body;
+    try {
+        const result = await db.one(
+            `SELECT * FROM users WHERE username = '${username}'`
+        );
+        const match = await bcrypt.compare(password, result.password);
+        if(match){
+            // login
+            req.session.username = username;
+            req.session.save();
+            res.redirect('/discover');
+        } else {
+            res.redirect('/login');
+        }
+    } catch (error){
+        console.error("Error logging user into the database: ", error.message);
+        res.redirect('/register');
+    }
 });
+
+// Authentication Middleware.
+const auth = (req, res, next) => {
+  if (!req.session.username) {
+    // Default to login page.
+    return res.redirect('/login');
+  }
+  next();
+};
+
+// Authentication Required
+app.use(auth);
+
+app.get('/logout', (req, res) => {
+    req.session.username = null;
+    res.render('pages/logout');
+});
+
+
+
+
+
 
 app.get('/parking', (req, res) => {
   // Sample parking data, this needs to be replaced with the actual API calls
@@ -55,6 +138,11 @@ app.get('/parking', (req, res) => {
     mapApiKey: process.env.GOOGLE_MAPS_API_KEY
   });
 });
+
+
+
+
+
 
 app.get('/welcome', (req, res) => {
   res.json({status: 'success', message: 'Welcome!'});
