@@ -11,7 +11,7 @@
       }
 
       const config = {
-        apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
+        apiKey: process.env.GOOGLE_MAPS_API_KEY,
         center: { lat: {{defaultLat}}, lng: {{defaultLng}} },
         zoom: {{defaultZoom}},
       };
