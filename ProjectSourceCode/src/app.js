@@ -28,6 +28,16 @@ app.post('/register', async (req, res) => {
   //on username/email taken, redirect to login page
 });
 
+app.get('/login', (req, res) => {
+  res.render('pages/login');
+});
+
+app.post('/login', async (req, res) => {
+  //TODO (Authentication)
+  //on sucessful login, redirect to main/map page
+  //on failure, redirect to login page
+});
+
 app.get('/parking', (req, res) => {
   // Sample parking data, this needs to be replaced with the actual API calls
   const parkingLocations = [
