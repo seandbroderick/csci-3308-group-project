@@ -56,6 +56,8 @@ app.get('/parking', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
+app.get('/welcome', (req, res) => {
+  res.json({status: 'success', message: 'Welcome!'});
 });
+
+module.exports = app.listen(3000);
