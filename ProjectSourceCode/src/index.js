@@ -89,7 +89,7 @@ app.post('/login', async (req, res) => {
             // login
             req.session.username = username;
             req.session.save();
-            res.redirect('/discover');
+            res.redirect('/parking');
         } else {
             res.redirect('/login');
         }
@@ -112,8 +112,9 @@ const auth = (req, res, next) => {
 app.use(auth);
 
 app.get('/logout', (req, res) => {
-    req.session.username = null;
-    res.render('pages/logout');
+  req.session.destroy(function(err) {
+    res.render('pages/login');
+  });
 });
 
 
