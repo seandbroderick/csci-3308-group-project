@@ -1,0 +1,32 @@
+<!-- views/pages/home.hbs -->
+<div class="container mt-5">
+  <h2 class="mb-4">Welcome, {{username}}!</h2>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Your Parking History</h5>
+      <div class="row">
+        {{#each parkingLocations}}
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <img src="{{this.image}}" class="card-img-top" alt="Parking spot">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">{{this.address}}</h6>
+                <a href="#" class="btn btn-outline-primary btn-sm">Book Again</a>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Find Nearby Parking</h5>
+      <div class="map-placeholder text-muted text-center py-5">
+        Map Placeholder (future interactive map can go here)
+      </div>
+    </div>
+  </div>
+</div>

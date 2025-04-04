@@ -36,3 +36,26 @@ app.get('/welcome', (req, res) => {
 });
 
 module.exports = app.listen(3000);
+
+
+app.get('/home', (req, res) => {
+  const parkingLocations = [
+    {
+      address: '8900 S Ames St, 80303',
+      image: '/img/parking1.jpg'
+    },
+    {
+      address: '4500 N Arapahoe Ave, 30432',
+      image: '/img/parking2.jpg'
+    },
+    {
+      address: '7101 E Baseline Rd, 80235',
+      image: '/img/parking3.jpg'
+    }
+  ];
+
+  res.render('pages/home', {
+    username: req.session?.username || 'Guest',
+    parkingLocations
+  });
+});
