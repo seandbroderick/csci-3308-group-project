@@ -79,24 +79,24 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        const result = await db.one(
-            `SELECT * FROM users WHERE username = '${username}'`
-        );
-        const match = await bcrypt.compare(password, result.password);
-        if(match){
-            // login
-            req.session.username = username;
-            req.session.save();
-            res.redirect('/parking');
-        } else {
-            res.redirect('/login');
-        }
-    } catch (error){
-        console.error("Error logging user into the database: ", error.message);
-        res.redirect('/register');
-    }
+  const { username, password } = req.body;
+  try {
+      const result = await db.one(
+          'SELECT * FROM users WHERE username = $1', [username]
+      );
+      const match = await bcrypt.compare(password, result.password);
+      if (match) {
+          // login
+          req.session.username = username;
+          req.session.save();
+          res.redirect('/parking');
+      } else {
+          res.redirect('/login');
+      }
+  } catch (error) {
+      console.error("Error logging user into the database: ", error.message);
+      res.redirect('/register');
+  }
 });
 
 // Authentication Middleware.
