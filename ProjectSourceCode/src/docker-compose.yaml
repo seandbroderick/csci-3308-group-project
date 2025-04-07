@@ -8,6 +8,13 @@ services:
     volumes:
       - group-project:/var/lib/postgresql/data
       - ./src/init_data:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB -h localhost"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+      start_period: 10s
+
   web:
     image: node:lts
     user: 'node'
@@ -21,6 +28,4 @@ services:
       - '3000:3000'
     volumes:
       - ./:/home/node/app
-    command: 'npm run testandrun' #TODO: change the command to `npm run testandrun` to run mocha
-volumes:
-  group-project:
+    command: 'npm run start' # Change this as needed
