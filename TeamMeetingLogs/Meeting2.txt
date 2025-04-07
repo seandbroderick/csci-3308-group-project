@@ -1,0 +1,12 @@
+- Meeting Two -> rescheduled to Thursday
+- Covered current progress following spring break
+- We need to be doing the meeting logs more often
+- TA wants us to have a product that at least partially works for use in lab
+- Confirmed with the TA that our roles balanced the work
+    - Sean & Ethan are working on the map api and the parking api
+    - Israt & Logan are working on the visual elements (pages, logos, formatting, etc.)
+    - Razvan & Timothy are working on the user database system our program will take advantage of
+- We talked as a group about a timeline for when we want the main deliverables done by. 
+    - Map April 11
+    - User & parking database April 18
+    - User design & pages April 21/22

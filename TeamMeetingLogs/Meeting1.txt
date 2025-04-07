@@ -1,0 +1,5 @@
+- Talked to TA about the roles each of us is planning to preform during the first couple weeks of the project
+    - Sean & Ethan are working on the map api and the parking api
+    - Israt & Logan are working on the visual elements (pages, logos, formatting, etc.)
+    - Razvan & Timothy are working on the user database system our program will take advantage of
+- We also decided to split up our branches based on what we are working on, not by person as we are generally working in pairs such that everyone can have someone working on the same thing to help them out.

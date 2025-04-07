@@ -13,10 +13,10 @@ PREREQS:
 Todo
 
 HOW TO RUN ON YOUR LOCAL MACHINE:
-Todo
+npm run start
 
 HOW TO RUN TESTS:
-Todo
+npm run testandrun
 
 LINK TO APPLICATION:
 Todo
