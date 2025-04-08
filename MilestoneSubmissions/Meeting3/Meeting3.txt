@@ -1,0 +1,13 @@
+Date: 4/7/2025
+Time: 5:00-6:40pm
+Members: Ethan Meli, Sean Broderick, Logan Kernan
+
+Meeting Content:
+The three of us had a meeting to work on integrating pieces of the project that have been 
+worked on by other members, and making sure everything worked and loaded properly across different 
+machines. We managed to successfully complete our task, fixing the authentication logic, as well 
+as the way that handlebars were being initialized in our program. While before the meeting we were 
+unable to load any pages, by the end we had a fully functioning login and register page that connects 
+with our database. We discussed future plans for this week, including the creation of our map home page,
+and updating the UI across all pages. Sean will also begin work on displaying the map, which will be
+taken over by Ethan to implement parking spot locations once complete.
