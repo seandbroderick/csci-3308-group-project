@@ -70,6 +70,16 @@ app.use(
 
 const username = undefined;
 
+// Redirect root URL to /home
+app.get('/', (req, res) => {
+  res.redirect('/home');
+});
+
+// Home page route
+app.get('/home', (req, res) => {
+  res.render('pages/home'); 
+});
+
 app.get('/', (req, res) => {
   res.redirect('/login');
 });
@@ -117,6 +127,8 @@ app.post('/login', async (req, res) => {
   }
 });
 
+
+
 // Authentication Middleware.
 const auth = (req, res, next) => {
   if (!req.session.username) {
@@ -134,7 +146,6 @@ app.get('/logout', (req, res) => {
     res.render('pages/login');
   });
 });
-
 
 
 
