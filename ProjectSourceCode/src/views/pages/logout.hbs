@@ -1,0 +1,35 @@
+{{! views/pages/logout.hbs }}
+<div class="logout-container text-center">
+  <div class="logout-card p-4 p-md-5">
+    <i class="bi bi-check-circle-fill text-success mb-3" style="font-size: 3rem;"></i>
+    <h2 class="mb-3">Logged Out Successfully</h2>
+    <p class="text-muted mb-4">You have been securely logged out of your P4rk account.</p>
+    
+    <div class="d-grid gap-2 col-md-6 mx-auto">
+      <a href="/login" class="btn btn-primary py-2">
+        <i class="bi bi-box-arrow-in-right me-2"></i>Log In Again
+      </a>
+      <a href="/home" class="btn btn-outline-secondary py-2">
+        <i class="bi bi-house me-2"></i>Return Home
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .logout-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background-color: #f8f9fa;
+  }
+  
+  .logout-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 100%;
+  }
+</style>
