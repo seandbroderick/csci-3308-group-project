@@ -136,6 +136,10 @@ const auth = (req, res, next) => {
 // Authentication Required
 app.use(auth);
 
+app.get('/account', (req, res) => {
+  res.render('pages/account');
+});
+
 app.get('/logout', (req, res) => {
   req.session.destroy(function(err) {
     if(err) {
