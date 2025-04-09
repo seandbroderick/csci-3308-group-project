@@ -73,15 +73,6 @@ app.get('/', (req, res) => {
   res.redirect('/home');
 });
 
-// Home page route
-app.get('/home', (req, res) => {
-  res.render('pages/home'); 
-});
-
-app.get('/map', (req, res) => {
-  res.render('pages/map');
-});
-
 app.get('/register', (req, res) => {
   res.render('pages/register');
 });
@@ -148,6 +139,15 @@ app.get('/logout', (req, res) => {
     }
     res.redirect('pages/logout'); // Render the new logout page
   });
+});
+
+// Home page route
+app.get('/home', (req, res) => {
+  res.render('pages/home'); 
+});
+
+app.get('/map', (req, res) => {
+  res.render('pages/map');
 });
 
 module.exports = app.listen(3000);
