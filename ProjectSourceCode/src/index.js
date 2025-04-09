@@ -66,13 +66,7 @@ app.use(
   })
 );
 
-
-
 const username = undefined;
-
-app.get('/welcome', (req, res) => {
-  res.json({status: 'success', message: 'Welcome!'});
-});
 
 // Redirect root URL to /home
 app.get('/', (req, res) => {
@@ -84,8 +78,8 @@ app.get('/home', (req, res) => {
   res.render('pages/home'); 
 });
 
-app.get('/', (req, res) => {
-  res.redirect('/login');
+app.get('/map', (req, res) => {
+  res.render('pages/map');
 });
 
 app.get('/register', (req, res) => {
@@ -104,10 +98,6 @@ app.post('/register', async (req, res) => {
         console.error("Error inserting user into the database: ", error.message);
         res.redirect('/register');
     }
-});
-
-app.get('/map', (req, res) => {
-  res.render('pages/map');
 });
 
 app.get('/login', (req, res) => {
