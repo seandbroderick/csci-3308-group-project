@@ -141,9 +141,20 @@ const auth = (req, res, next) => {
 // Authentication Required
 app.use(auth);
 
+// app.get('/logout', (req, res) => {
+//   req.session.destroy(function(err) {
+//     res.render('pages/login');
+//   });
+// });
+
+
 app.get('/logout', (req, res) => {
   req.session.destroy(function(err) {
-    res.render('pages/login');
+    if(err) {
+      console.error("Logout error:", err);
+      return res.redirect('/parking');
+    }
+    res.render('pages/logout'); // Render the new logout page
   });
 });
 

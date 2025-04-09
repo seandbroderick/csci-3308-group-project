@@ -199,7 +199,13 @@
 
 
 
-{{! ProjectSourceCode/src/views/pages/home.hbs }}
+
+
+
+
+
+
+{{!-- {{! ProjectSourceCode/src/views/pages/home.hbs }}
 <div class="container mt-5">
   <h1 class="text-center">P4RK</h1>
   
@@ -240,4 +246,156 @@
       {{/each}}
     </div>
   </div>
+</div> --}}
+
+
+
+
+
+
+<div class="container home-container">
+  {{! Header }}
+  <header class="text-center my-4">
+    <h1 class="app-title">P4RK</h1>
+  </header>
+
+  {{! Search Bar }}
+  <div class="search-container mb-5">
+    <div class="input-group">
+      <input 
+        type="text" 
+        class="form-control search-input" 
+        placeholder="Enter Address or Place..."
+      >
+      <button class="btn btn-primary search-btn">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  {{! My Passes Section }}
+  <section class="passes-section mb-4">
+    <h2 class="section-title">MY PASSES</h2>
+    <h3 class="subsection-title">Where you've parked</h3>
+    
+    <div class="pass-list">
+      <div class="pass-item p-3 mb-2 bg-light rounded">
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="pass-address mb-0">8900 S Ames st, 80303</p>
+          <button class="btn btn-sm btn-outline-primary book-again-btn">Book again</button>
+        </div>
+      </div>
+      <div class="pass-item p-3 mb-2 bg-light rounded">
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="pass-address mb-0">4500 N Arapahoe Ave, 30432</p>
+          <button class="btn btn-sm btn-outline-primary book-again-btn">Book again</button>
+        </div>
+      </div>
+      <div class="pass-item p-3 mb-2 bg-light rounded">
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="pass-address mb-0">7101 E Baseline Rd, 80235</p>
+          <button class="btn btn-sm btn-outline-primary book-again-btn">Book again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  {{! Nearby Parking Section }}
+  <section class="nearby-section">
+    <h3 class="subsection-title">Find parking where you are</h3>
+    <div class="location-group">
+      <h4 class="location-title">UNIVERSITY HILL</h4>
+      <div class="street-list">
+        {{#each streets}}
+          <span class="street-badge">{{this}}</span>
+        {{/each}}
+      </div>
+    </div>
+  </section>
 </div>
+
+<style>
+  /* Custom Styles */
+  .home-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .app-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+
+  .search-container {
+    margin: 20px 0;
+  }
+
+  .search-input {
+    border-radius: 20px 0 0 20px;
+    padding: 12px 20px;
+    border-right: none;
+  }
+
+  .search-btn {
+    border-radius: 0 20px 20px 0;
+    padding: 0 20px;
+  }
+
+  .divider {
+    border: none;
+    height: 1px;
+    background-color: #eee;
+    margin: 25px 0;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .subsection-title {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+  }
+
+  .pass-address {
+    font-size: 1rem;
+    color: #34495e;
+  }
+
+  .book-again-btn {
+    min-width: 100px;
+  }
+
+  .location-title {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .street-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .street-badge {
+    background: #e8f4fc;
+    color: #2980b9;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+  }
+</style>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
