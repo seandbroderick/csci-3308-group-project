@@ -106,6 +106,10 @@ app.post('/register', async (req, res) => {
     }
 });
 
+app.get('/map', (req, res) => {
+  res.render('pages/map');
+});
+
 app.get('/login', (req, res) => {
   res.render('pages/login');
 });
@@ -121,7 +125,7 @@ app.post('/login', async (req, res) => {
           // login
           req.session.username = username;
           req.session.save();
-          res.redirect('/parking');
+          res.redirect('/home');
       } else {
           res.status(401).send('Invalid username or password');
       }
