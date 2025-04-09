@@ -89,7 +89,16 @@ app.get('/', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  res.render('pages/register');
+  const reason = req.query.reason || null;
+  switch(reason) {
+    case "account_already_exists":
+      message = "This username is already taken. Choose another or log in.";
+      break;
+    default:
+      message = null;
+      break;
+  }
+  res.render('pages/register', { message });
 });
 
 app.post('/register', async (req, res) => {
@@ -102,7 +111,7 @@ app.post('/register', async (req, res) => {
         res.redirect('/login');
     } catch (error){
         console.error("Error inserting user into the database: ", error.message);
-        res.redirect('/register');
+        res.redirect('/register?reason=account_already_exists');
     }
 });
 
@@ -111,7 +120,22 @@ app.get('/map', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('pages/login');
+  const reason = req.query.reason || null;
+  switch(reason) {
+    case "not_logged_in":
+      message = "You must be logged in to access this page.";
+      break;
+    case "invalid_password":
+      message = "Incorrect password. Please try again.";
+      break;
+    case "no_such_account":
+      message = "Username not in database. Please register.";
+      break;
+    default:
+      message = null;
+      break;
+  }
+  res.render('pages/login', { message });
 });
 
 app.post('/login', async (req, res) => {
@@ -127,10 +151,10 @@ app.post('/login', async (req, res) => {
           req.session.save();
           res.redirect('/home');
       } else {
-          res.status(401).send('Invalid username or password');
+          res.redirect('/login?reason=invalid_password');
       }
   } catch (error) {
-      res.redirect('/login');
+      res.redirect('/login?reason=no_such_account');
   }
 });
 
@@ -138,7 +162,7 @@ app.post('/login', async (req, res) => {
 const auth = (req, res, next) => {
   if (!req.session.username) {
     // Default to login page.
-    return res.redirect('/login');
+    return res.redirect('/login?reason=not_logged_in');
   }
   next();
 };
