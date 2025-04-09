@@ -139,6 +139,16 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get('/logout', (req, res) => {
+  req.session.destroy(function(err) {
+    if(err) {
+      console.error("Logout error:", err);
+      return res.redirect('/parking');
+    }
+    res.render('pages/logout'); // Render the new logout page
+  });
+});
+
 // Authentication Middleware.
 const auth = (req, res, next) => {
   if (!req.session.username) {
@@ -153,16 +163,6 @@ app.use(auth);
 
 app.get('/account', (req, res) => {
   res.render('pages/account');
-});
-
-app.get('/logout', (req, res) => {
-  req.session.destroy(function(err) {
-    if(err) {
-      console.error("Logout error:", err);
-      return res.redirect('/parking');
-    }
-    res.redirect('pages/logout'); // Render the new logout page
-  });
 });
 
 // Home page route
