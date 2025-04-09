@@ -159,7 +159,7 @@ app.get('/logout', (req, res) => {
       console.error("Logout error:", err);
       return res.redirect('/parking');
     }
-    res.render('pages/logout'); // Render the new logout page
+    res.redirect('pages/logout'); // Render the new logout page
   });
 });
 
