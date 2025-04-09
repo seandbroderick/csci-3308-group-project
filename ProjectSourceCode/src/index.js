@@ -70,6 +70,10 @@ app.use(
 
 const username = undefined;
 
+app.get('/welcome', (req, res) => {
+  res.json({status: 'success', message: 'Welcome!'});
+});
+
 // Redirect root URL to /home
 app.get('/', (req, res) => {
   res.redirect('/home');
@@ -123,11 +127,9 @@ app.post('/login', async (req, res) => {
       }
   } catch (error) {
       console.error("Error logging user into the database: ", error.message);
-      res.redirect('/register');
+      res.redirect('/login');
   }
 });
-
-
 
 // Authentication Middleware.
 const auth = (req, res, next) => {
@@ -147,10 +149,6 @@ app.get('/logout', (req, res) => {
   });
 });
 
-
-
-
-
 app.get('/parking', (req, res) => {
   // Sample parking data, this needs to be replaced with the actual API calls
   const parkingLocations = [
@@ -167,15 +165,6 @@ app.get('/parking', (req, res) => {
     json: obj => JSON.stringify(obj),
     mapApiKey: process.env.GOOGLE_MAPS_API_KEY
   });
-});
-
-
-
-
-
-
-app.get('/welcome', (req, res) => {
-  res.json({status: 'success', message: 'Welcome!'});
 });
 
 module.exports = app.listen(3000);
