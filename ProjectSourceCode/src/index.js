@@ -66,13 +66,7 @@ app.use(
   })
 );
 
-
-
 const username = undefined;
-
-app.get('/welcome', (req, res) => {
-  res.json({status: 'success', message: 'Welcome!'});
-});
 
 // Redirect root URL to /home
 app.get('/', (req, res) => {
@@ -84,8 +78,8 @@ app.get('/home', (req, res) => {
   res.render('pages/home'); 
 });
 
-app.get('/', (req, res) => {
-  res.redirect('/login');
+app.get('/map', (req, res) => {
+  res.render('pages/map');
 });
 
 app.get('/register', (req, res) => {
@@ -104,10 +98,6 @@ app.post('/register', async (req, res) => {
         console.error("Error inserting user into the database: ", error.message);
         res.redirect('/register');
     }
-});
-
-app.get('/map', (req, res) => {
-  res.render('pages/map');
 });
 
 app.get('/login', (req, res) => {
@@ -146,12 +136,9 @@ const auth = (req, res, next) => {
 // Authentication Required
 app.use(auth);
 
-// app.get('/logout', (req, res) => {
-//   req.session.destroy(function(err) {
-//     res.render('pages/login');
-//   });
-// });
-
+app.get('/account', (req, res) => {
+  res.render('pages/account');
+});
 
 app.get('/logout', (req, res) => {
   req.session.destroy(function(err) {
@@ -160,24 +147,6 @@ app.get('/logout', (req, res) => {
       return res.redirect('/parking');
     }
     res.redirect('pages/logout'); // Render the new logout page
-  });
-});
-
-app.get('/parking', (req, res) => {
-  // Sample parking data, this needs to be replaced with the actual API calls
-  const parkingLocations = [
-    { name: 'Downtown Parking', lat: 40.7128, lng: -74.0060, available: 15 },
-    { name: 'Central Garage', lat: 40.7150, lng: -74.0080, available: 42 },
-    { name: 'Riverfront Lot', lat: 40.7100, lng: -74.0030, available: 8 }
-  ];
-  
-  res.render('parking-map', {
-    defaultLat: 40.7128,
-    defaultLng: -74.0060,
-    defaultZoom: 14,
-    parkingLocations,
-    json: obj => JSON.stringify(obj),
-    mapApiKey: process.env.GOOGLE_MAPS_API_KEY
   });
 });
 
