@@ -66,6 +66,9 @@ app.use(
   })
 );
 
+// Serve static files from resources directory
+app.use(express.static(path.join(__dirname, 'resources')));
+
 const username = undefined;
 
 // Redirect root URL to /home
@@ -171,7 +174,9 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/map', (req, res) => {
-  res.render('pages/map');
+  res.render('pages/map', {
+    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
+  });
 });
 
 module.exports = app.listen(3000);
