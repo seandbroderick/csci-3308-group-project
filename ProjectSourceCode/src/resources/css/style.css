@@ -1,0 +1,109 @@
+/* Main Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Home Page Specific Styles */
+  .home-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .app-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .search-container {
+    margin: 20px 0;
+  }
+  
+  .search-input {
+    border-radius: 20px 0 0 20px;
+    padding: 12px 20px;
+    border-right: none;
+  }
+  
+  .search-btn {
+    border-radius: 0 20px 20px 0;
+    padding: 0 20px;
+  }
+  
+  .divider {
+    border: none;
+    height: 1px;
+    background-color: #eee;
+    margin: 25px 0;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .subsection-title {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+  }
+  
+  .pass-address {
+    font-size: 1rem;
+    color: hwb(232 3% 11%);
+  }
+  
+  .book-again-btn {
+    min-width: 100px;
+  }
+  
+  .location-title {
+    font-size: 1.1rem;
+    color: #5d9cdb;
+    margin-bottom: 10px;
+  }
+  
+  .street-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .street-badge {
+    background: #e8f4fc;
+    color: #2980b9;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+  }
+
+
+
+  /* About Dropdown Styles */
+.about-dropdown {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .about-btn {
+    padding: 5px 15px;
+    border-radius: 20px;
+  }
+  
+  /* Tab Content Styles */
+  .tab-content {
+    display: none; /* Hidden by default */
+  }
+  
+  .tab-content.show {
+    display: block; /* Show when active */
+  }
+  
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }

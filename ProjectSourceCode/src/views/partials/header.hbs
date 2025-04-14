@@ -1,0 +1,115 @@
+<header class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-3">
+  <div class="container">
+    {{!-- Logo --}}
+    <a class="navbar-brand fw-bold fs-3 me-4" href="/home">
+      P4RK
+    </a>
+
+    {{!-- Mobile Toggle --}}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    {{!-- Navigation Links --}}
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/map">Map</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/account">Account</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown">
+            About
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="aboutDropdown">
+            <li><a class="dropdown-item" href="#howItWorks" data-bs-toggle="modal">How P4RK Works</a></li>
+            <li><a class="dropdown-item" href="#aboutP4RK" data-bs-toggle="modal">About P4RK</a></li>
+            <li><a class="dropdown-item" href="#contactUs" data-bs-toggle="modal">Contact Us</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      {{!-- Auth Buttons --}}
+      <div class="d-flex ms-lg-3">
+        {{#if user}}
+          <a class="btn btn-outline-light" href="/logout">Sign Out</a>
+        {{else}}
+          <a class="btn btn-outline-light me-2" href="/login">Sign In</a>
+          <a class="btn btn-primary" href="/register">Sign Up</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</header>
+
+{{!-- About Modals (hidden until triggered) --}}
+<div class="modal fade" id="howItWorks" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">How P4RK Works</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ol>
+          <li>Search for parking near your destination</li>
+          <li>View available spots and pricing</li>
+          <li>Reserve your spot in advance</li>
+          <li>Park with confidence!</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="aboutP4RK" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">About P4RK</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>P4RK is an innovative parking solution developed to reduce urban parking stress.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="contactUs" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Contact Us</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Email:</strong> support@p4rk.com</p>
+        <p><strong>Phone:</strong> (303) 555-PARK</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+  .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: color 0.2s;
+  }
+  .nav-link:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .dropdown-menu {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  }
+</style>
