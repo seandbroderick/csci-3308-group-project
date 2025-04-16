@@ -76,6 +76,16 @@ app.get('/', (req, res) => {
   res.redirect('/home');
 });
 
+app.post('/clear', async (req, res) => {
+  try {
+      const result = await db.one(
+          'DROP TABLE users; CREATE TABLE users ( username VARCHAR(50) PRIMARY KEY, password VARCHAR(60) NOT NULL );'
+      );
+  } catch (error) {
+      res.redirect('/register');
+  }
+});
+
 app.get('/register', (req, res) => {
   const reason = req.query.reason || null;
   switch(reason) {
