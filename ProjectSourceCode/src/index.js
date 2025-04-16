@@ -153,7 +153,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/changePassword', async (req, res) => {
-  const { oldPassword, newPassword } = req.body;
+  const { currentPassword, newPassword, confirmPassword } = req.body;
   const username = req.session.username;
 
   if (!username) {
@@ -162,19 +162,48 @@ app.post('/changePassword', async (req, res) => {
 
   try {
     const user = await db.one('SELECT * FROM users WHERE username = $1', [username]);
-    const match = await bcrypt.compare(oldPassword, user.password);
+    const match = await bcrypt.compare(currentPassword, user.password);
 
     if (match) {
-      const hash = await bcrypt.hash(newPassword, 10);
-      await db.none('UPDATE users SET password = $1 WHERE username = $2', [hash, username]);
-      res.redirect('/account?message=password_changed');
+      if (newPassword !== confirmPassword) {
+        return res.redirect('/account?reason=passwords_do_not_match');
+      } else {
+        const hash = await bcrypt.hash(newPassword, 10);
+        await db.none('UPDATE users SET password = $1 WHERE username = $2', [hash, username]);
+        res.redirect('/account?reason=password_changed');
+      }
     } else {
-      res.redirect('/account?message=incorrect_old_password');
+      res.redirect('/account?reason=incorrect_old_password');
     }
   } catch (error) {
     console.error("Error changing password: ", error.message);
-    res.redirect('/account?message=error');
+    res.redirect('/account?reason=error');
   }
+});
+
+app.get('/account', (req, res) => {
+  const reason = req.query.reason || null;
+  let message = null;
+
+  switch (reason) {
+    case "passwords_do_not_match":
+      message = "New passwords do not match. Please try again.";
+      break;
+    case "password_changed":
+      message = "Password successfully changed.";
+      break;
+    case "incorrect_old_password":
+      message = "Current password is incorrect. Please try again.";
+      break;
+    case "error":
+      message = "An error occurred while changing the password. Please try again.";
+      break;
+    default:
+      message = null;
+      break;
+  }
+
+  res.render('pages/account', { message });
 });
 
 // Authentication Middleware.
