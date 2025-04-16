@@ -20,7 +20,7 @@ app.use('/resources', express.static(path.join(__dirname, 'resources')));
 // database configuration
 const dbConfig = {
   host: process.env.POSTGRES_HOST, // the database server
-  port: process.env.PORT, // the database port
+  port: process.env.PORTGRES_PORT, // the database port
   database: process.env.POSTGRES_DB, // the database name
   user: process.env.POSTGRES_USER, // the user account to connect with
   password: process.env.POSTGRES_PASSWORD, // the password of the user account
@@ -81,10 +81,6 @@ app.post('/clear', async (req, res) => {
   } catch (error) {
       res.redirect('/register');
   }
-});
-
-app.get('/account', (req, res) => {
-  res.render('pages/account');
 });
 
 app.get('/register', (req, res) => {
@@ -253,13 +249,8 @@ app.get('/logout', (req, res) => {
 
 // Home page route
 app.get('/home', (req, res) => {
-  res.render('pages/home'); 
-});
-
-app.get('/map', (req, res) => {
-  res.render('pages/map', {
+  res.render('pages/home', {
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
-
   });
 });
 
