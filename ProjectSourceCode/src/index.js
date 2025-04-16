@@ -253,13 +253,8 @@ app.get('/logout', (req, res) => {
 
 // Home page route
 app.get('/home', (req, res) => {
-  res.render('pages/home'); 
-});
-
-app.get('/map', (req, res) => {
-  res.render('pages/map', {
+  res.render('pages/home', {
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
-
   });
 });
 
