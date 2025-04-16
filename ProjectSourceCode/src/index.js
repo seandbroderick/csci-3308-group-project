@@ -174,6 +174,65 @@ const auth = (req, res, next) => {
 // Authentication Required
 app.use(auth);
 
+app.post('/changePassword', async (req, res) => {
+  const { currentPassword, newPassword, confirmPassword } = req.body;
+  const username = req.session.username;
+
+  if (!username) {
+    return res.redirect('/login?reason=not_logged_in');
+  }
+
+  try {
+    const user = await db.one('SELECT * FROM users WHERE username = $1', [username]);
+    const match = await bcrypt.compare(currentPassword, user.password);
+
+    if (match) {
+      if (newPassword !== confirmPassword) {
+        return res.redirect('/account?reason=passwords_do_not_match');
+      } else if (newPassword == currentPassword) {
+        return res.redirect('/account?reason=same_password');
+      } else {
+        const hash = await bcrypt.hash(newPassword, 10);
+        await db.none('UPDATE users SET password = $1 WHERE username = $2', [hash, username]);
+        res.redirect('/account?reason=password_changed');
+      }
+    } else {
+      res.redirect('/account?reason=incorrect_old_password');
+    }
+  } catch (error) {
+    console.error("Error changing password: ", error.message);
+    res.redirect('/account?reason=error');
+  }
+});
+
+app.get('/account', (req, res) => {
+  const reason = req.query.reason || null;
+  let message = null;
+
+  switch (reason) {
+    case "passwords_do_not_match":
+      message = "New passwords do not match. Please try again.";
+      break;
+    case "password_changed":
+      message = "Password successfully changed.";
+      break;
+    case "incorrect_old_password":
+      message = "Current password is incorrect. Please try again.";
+      break;
+    case "same_password":
+      message = "New password cannot be the same as the old password.";
+      break;
+    case "error":
+      message = "An error occurred while changing the password. Please try again.";
+      break;
+    default:
+      message = null;
+      break;
+  }
+
+  res.render('pages/account', { message });
+});
+
 app.get('/account', (req, res) => {
   res.render('pages/account');
 });
