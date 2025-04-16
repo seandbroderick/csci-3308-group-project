@@ -8,6 +8,9 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
+// This allows serving static files from the uploads directory
+app.use('/resources', express.static(path.join(__dirname, 'resources')));
+
 
 
 
@@ -33,12 +36,6 @@ db.connect()
   .catch(error => {
     console.log('ERROR:', error.message || error);
   });
-
-
-
-
-
-
 
 
 
@@ -84,6 +81,10 @@ app.post('/clear', async (req, res) => {
   } catch (error) {
       res.redirect('/register');
   }
+});
+
+app.get('/account', (req, res) => {
+  res.render('pages/account');
 });
 
 app.get('/register', (req, res) => {
@@ -237,6 +238,19 @@ app.get('/account', (req, res) => {
   res.render('pages/account');
 });
 
+
+
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(function(err) {
+    if(err) {
+      console.error("Logout error:", err);
+      return res.redirect('/parking');
+    }
+    res.redirect('pages/logout'); // Render the new logout page
+  });
+});
+
 // Home page route
 app.get('/home', (req, res) => {
   res.render('pages/home'); 
@@ -245,6 +259,7 @@ app.get('/home', (req, res) => {
 app.get('/map', (req, res) => {
   res.render('pages/map', {
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
+
   });
 });
 
