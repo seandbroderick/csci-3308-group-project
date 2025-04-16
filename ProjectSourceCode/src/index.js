@@ -83,10 +83,6 @@ app.post('/clear', async (req, res) => {
   }
 });
 
-app.get('/account', (req, res) => {
-  res.render('pages/account');
-});
-
 app.get('/register', (req, res) => {
   const reason = req.query.reason || null;
   switch(reason) {
