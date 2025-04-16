@@ -152,6 +152,31 @@ app.get('/logout', (req, res) => {
   });
 });
 
+app.post('/changePassword', async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const username = req.session.username;
+
+  if (!username) {
+    return res.redirect('/login?reason=not_logged_in');
+  }
+
+  try {
+    const user = await db.one('SELECT * FROM users WHERE username = $1', [username]);
+    const match = await bcrypt.compare(oldPassword, user.password);
+
+    if (match) {
+      const hash = await bcrypt.hash(newPassword, 10);
+      await db.none('UPDATE users SET password = $1 WHERE username = $2', [hash, username]);
+      res.redirect('/account?message=password_changed');
+    } else {
+      res.redirect('/account?message=incorrect_old_password');
+    }
+  } catch (error) {
+    console.error("Error changing password: ", error.message);
+    res.redirect('/account?message=error');
+  }
+});
+
 // Authentication Middleware.
 const auth = (req, res, next) => {
   if (!req.session.username) {
