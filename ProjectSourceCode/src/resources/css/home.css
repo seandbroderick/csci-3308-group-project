@@ -1,13 +1,13 @@
 /* Map Container and Controls */
 .map-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.map-container.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .controls-container {
@@ -218,37 +218,42 @@
 
 .image-stack {
   position: relative;
-  height: 500px;
+  height: 600px;
+  margin-right: 20px;
 }
 
 .image-stack__item {
   position: absolute;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  width: 60%;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: all 0.5s ease;
+  width: 70%; /* Increased size */
 }
 
 .image-stack__item:hover {
-  transform: scale(1.05);
-  z-index: 5;
+  transform: scale(1.05) rotate(0);
+  z-index: 10;
 }
 
 .image-stack__item--top {
   top: 0;
-  left: 0;
+  right: 10%;
   z-index: 3;
+  transform: rotate(5deg);
 }
 
 .image-stack__item--middle {
-  top: 35%;
-  left: 20%;
+  top: 30%;
+  left: 0;
   z-index: 2;
+  transform: rotate(-3deg);
 }
 
 .image-stack__item--bottom {
   top: 60%;
-  left: 40%;
+  left: 20%;
   z-index: 1;
+  transform: rotate(2deg);
 }
 
 /* FAQ Section */
@@ -265,6 +270,14 @@
 .accordion-button:focus {
   box-shadow: none;
   border-color: rgba(0,0,0,.125);
+}
+
+.feature-list {
+  padding-left: 30px; /* Add padding for better alignment with images */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (max-width: 768px) {
@@ -284,4 +297,34 @@
   .image-stack {
     height: 400px;
   }
+}
+
+/* Animation utilities */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-in-left.active, 
+.slide-in-right.active {
+  opacity: 1;
+  transform: translateX(0);
 }

@@ -50,7 +50,7 @@
       <div class="row align-items-center">
         <!-- Left Column - Images -->
         <div class="col-lg-6">
-          <div class="image-stack">
+          <div class="image-stack fade-in">
             <div class="image-stack__item image-stack__item--top">
               <img src="/resources/img/P4RK1.jpeg" alt="Parking spot" class="img-fluid rounded">
             </div>
@@ -66,14 +66,14 @@
         <!-- Right Column - Text -->
         <div class="col-lg-6 ps-lg-5 mt-5 mt-lg-0">
           <div class="feature-list">
-            <div class="feature-item mb-5">
+            <div class="feature-item mb-5 slide-in-right">
               <h3 class="promo-heading">
                 <span class="d-block display-4 fw-bold">SAVE TIME</span>
                 <p class="lead mt-3">Book a space in just a few easy clicks</p>
               </h3>
             </div>
             
-            <div class="feature-item mb-5">
+            <div class="feature-item mb-5 slide-in-right" data-delay="200">
               <h3 class="promo-heading">
                 <span class="d-block display-4 fw-bold">DISCOVER</span>
                 <span class="d-block display-4 fw-bold">AMAZING</span>
@@ -84,7 +84,7 @@
               </p>
             </div>
             
-            <div class="feature-item">
+            <div class="feature-item slide-in-right" data-delay="400">
               <h3 class="promo-heading">
                 <span class="d-block display-4 fw-bold">DRIVE</span>
                 <span class="d-block display-4 fw-bold">ARRIVE</span>
@@ -100,7 +100,7 @@
   <!-- FAQ Section -->
   <section class="faq-section">
     <div class="container">
-      <div class="text-center mb-5">
+      <div class="text-center mb-5 fade-in">
         <h2 class="display-4 fw-bold mb-3">
           <i class="bi bi-question-circle-fill me-2"></i>FAQ
         </h2>
@@ -109,7 +109,7 @@
       
       <div class="accordion" id="faqAccordion">
         <!-- Question 1 -->
-        <div class="accordion-item mb-3 border-0">
+        <div class="accordion-item mb-3 border-0 fade-in" data-delay="100">
           <h3 class="accordion-header">
             <button class="accordion-button collapsed rounded shadow-sm" type="button" 
                     data-bs-toggle="collapse" data-bs-target="#faq1"
@@ -127,7 +127,7 @@
         </div>
 
         <!-- Question 2 -->
-        <div class="accordion-item mb-3 border-0">
+        <div class="accordion-item mb-3 border-0 fade-in" data-delay="200">
           <h3 class="accordion-header">
             <button class="accordion-button collapsed rounded shadow-sm" type="button" 
                     data-bs-toggle="collapse" data-bs-target="#faq2"
@@ -144,7 +144,7 @@
         </div>
 
         <!-- Question 3 -->
-        <div class="accordion-item mb-3 border-0">
+        <div class="accordion-item mb-3 border-0 fade-in" data-delay="300">
           <h3 class="accordion-header">
             <button class="accordion-button collapsed rounded shadow-sm" type="button" 
                     data-bs-toggle="collapse" data-bs-target="#faq3"
@@ -854,6 +854,45 @@
       
       return infoWindow;
     }
+
+    // Handle animations for scroll effects
+    document.addEventListener('DOMContentLoaded', function() {
+      // Show map container immediately with animation
+      setTimeout(function() {
+        document.querySelector('.map-container').classList.add('active');
+      }, 300);
+      
+      // More sophisticated scroll detection
+      const handleScrollAnimations = function() {
+        const elements = document.querySelectorAll('.fade-in:not(.active), .slide-in-left:not(.active), .slide-in-right:not(.active)');
+        
+        elements.forEach(element => {
+          const rect = element.getBoundingClientRect();
+          const triggerPoint = window.innerHeight * 0.8; // 80% down the screen
+          
+          if (rect.top <= triggerPoint) {
+            // Add staggered animation based on element position in DOM
+            const delay = element.dataset.delay ? parseInt(element.dataset.delay) : 0;
+            
+            setTimeout(() => {
+              element.classList.add('active');
+            }, delay);
+          }
+        });
+      };
+      
+      // Check for animations on initial load (for elements already in viewport)
+      setTimeout(handleScrollAnimations, 500);
+      
+      // Add throttled scroll listener for better performance
+      let scrollTimeout;
+      window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(handleScrollAnimations, 100);
+      });
+    });
   </script>
 
   <!-- Google Maps API with required libraries -->
