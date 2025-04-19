@@ -112,6 +112,7 @@ app.post('/register', async (req, res) => {
 
 app.get('/login', (req, res) => {
   const reason = req.query.reason || null;
+  let message = null;
   switch(reason) {
     case "not_logged_in":
       message = "You must be logged in to access this page.";
@@ -204,6 +205,7 @@ app.post('/changePassword', async (req, res) => {
 
 app.get('/account', (req, res) => {
   const reason = req.query.reason || null;
+  const username = req.session.username;
   let message = null;
 
   switch (reason) {
@@ -227,11 +229,12 @@ app.get('/account', (req, res) => {
       break;
   }
 
-  res.render('pages/account', { message });
+  res.render('pages/account', { message, username });
 });
 
 app.get('/account', (req, res) => {
-  res.render('pages/account');
+  const username = req.session.username;
+  res.render('pages/account', { username });
 });
 
 

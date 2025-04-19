@@ -1,8 +1,3 @@
-<div class="container home-container">
-
-    
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +6,10 @@
   <title>Parking Map</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
   <style>
     :root {
@@ -22,12 +17,6 @@
       --accent-color: #3498db;
       --bg-color: #ecf0f1;
       --footer-bg: #34495e;
-    }
-
-    .footer-buttons .btn.active {
-    background-color: #2980b9;
-    font-weight: bold;
-    border: 2px solid white;
     }
 
     body, html {
@@ -43,24 +32,11 @@
       padding: 20px 0;
     }
 
-    .logo-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
     .logo-container img {
       height: 50px;
     }
 
-
-    .map-placeholder {
-      font-size: 1.2rem;
-      color: #7f8c8d;
-    }
-
     .map-container {
-      position: relative;
       width: 100%;
       height: 100%;
       display: flex;
@@ -75,17 +51,18 @@
       z-index: 10;
     }
 
-      .map-wrapper {
+    .map-wrapper {
       flex-grow: 1;
       position: relative;
       border-radius: 0 0 8px 8px;
       overflow: hidden;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      height: 60vh;
     }
 
     #map {
       width: 100%;
-      height: 60vh;
+      height: 100%;
     }
 
     .location-info {
@@ -126,63 +103,100 @@
       background-color: #2980b9;
     }
 
-    .location-button-container {
-      display: flex;
-      align-items: center;
+    /* Promo Section Styles */
+    .promo-section {
+      padding: 5rem 0;
     }
-
-    footer {
-      background-color: var(--footer-bg);
-      padding: 15px 0;
+    
+    .image-stack {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
     }
-
-    .footer-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
+    
+    .image-stack__item {
+      position: absolute;
+      width: 80%;
+      box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+      transition: all 0.3s;
     }
-
-    .footer-buttons .btn {
+    
+    .image-stack__item--bottom {
+      left: 0;
+      z-index: 1;
+    }
+    
+    .image-stack__item--top {
+      top: -2rem;
+      right: 0;
+      z-index: 2;
+      width: 85%;
+    }
+    
+    .image-stack__item--middle {
+      left: 10%;
+      top: 5rem;
+      z-index: 3;
+      width: 75%;
+    }
+    
+    .promo-heading {
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      background-color: #5289c1;
+      padding: 5rem 0;
+    }
+    
+    .contact-card {
+      background: white;
+      border-radius: 10px;
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      padding: 5rem 0;
+    }
+    
+    .accordion-button:not(.collapsed) {
       background-color: var(--accent-color);
-      border: none;
       color: white;
-      padding: 10px 25px;
-      font-size: 1rem;
-      border-radius: 25px;
-      transition: background-color 0.3s ease;
     }
-
-    .footer-buttons .btn:hover {
-      background-color: #2980b9;
-    }
-
+    
     @media (max-width: 768px) {
       .map-controls {
         flex-direction: column;
       }
-
-      .location-button-container {
-        width: 100%;
-        margin-top: 10px;
+      
+      .image-stack {
+        margin-bottom: 3rem;
       }
-
-      #getCurrentLocation {
-        width: 100%;
+      
+      .image-stack__item--top {
+        top: 0;
+        right: 0;
+      }
+      
+      .image-stack__item--middle {
+        top: 3rem;
+        left: 5%;
       }
     }
   </style>
 </head>
-
-
-
+<body>
   <!-- Map Area -->
-  <main>
-    {{!-- <div class="map-container">
-      <div class="controls-container"> --}}
+  <div class="container my-5">
+    <div class="map-container">
+      <div class="controls-container">
         <div class="location-info" id="locationStatus">
           <!-- Status messages will appear here -->
         </div>
-
         <div class="map-controls">
           <div class="search-container">
             <input
@@ -197,27 +211,143 @@
               <i class="bi bi-geo-alt"></i> Use My Location
             </button>
           </div>
-        {{!-- </div> --}}
+        </div>
       </div>
-
       <div class="map-wrapper">
         <div id="map"></div>
       </div>
-    {{!-- </div> --}}
-  </main>
+    </div>
+  </div>
 
+  <!-- Promo Section -->
+  <section class="promo-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Left Column - Images -->
+        <div class="col-lg-6">
+          <div class="image-stack">
+            <div class="image-stack__item image-stack__item--top">
+              <img src="/resources/img/P4RK1.jpeg" alt="Parking spot" class="img-fluid rounded">
+            </div>
+            <div class="image-stack__item image-stack__item--middle">
+              <img src="/resources/img/P4RK3.jpeg" alt="Parking garage" class="img-fluid rounded">
+            </div>
+            <div class="image-stack__item image-stack__item--bottom">
+              <img src="/resources/img/P4RK03.jpeg" alt="Parking lot" class="img-fluid rounded">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column - Text -->
+        <div class="col-lg-6 ps-lg-5 mt-5 mt-lg-0">
+          <div class="feature-list">
+            <div class="feature-item mb-5">
+              <h3 class="promo-heading">
+                <span class="d-block display-4 fw-bold">SAVE TIME</span>
+                <p class="lead mt-3">Book a space in just a few easy clicks</p>
+              </h3>
+            </div>
+            
+            <div class="feature-item mb-5">
+              <h3 class="promo-heading">
+                <span class="d-block display-4 fw-bold">DISCOVER</span>
+                <span class="d-block display-4 fw-bold">AMAZING</span>
+                <span class="d-block display-2 fw-bold text-primary">SPACES</span>
+              </h3>
+              <p class="lead mt-3">
+                Find parking anywhere, for now or for later
+              </p>
+            </div>
+            
+            <div class="feature-item">
+              <h3 class="promo-heading">
+                <span class="d-block display-4 fw-bold">DRIVE</span>
+                <span class="d-block display-4 fw-bold">ARRIVE</span>
+                <span class="d-block display-2 fw-bold text-primary">& PARK</span>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Bootstrap JS (Optional) -->
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-4 fw-bold mb-3">
+          <i class="bi bi-question-circle-fill me-2"></i>FAQ
+        </h2>
+        <p class="text-muted">Common questions about parking with us</p>
+      </div>
+      
+      <div class="accordion" id="faqAccordion">
+        <!-- Question 1 -->
+        <div class="accordion-item mb-3 border-0">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed rounded shadow-sm" type="button" 
+                    data-bs-toggle="collapse" data-bs-target="#faq1"
+                    aria-expanded="false">
+              <i class="bi bi-search me-2"></i> How do I find parking locations?
+            </button>
+          </h3>
+          <div id="faq1" class="accordion-collapse collapse" 
+               data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-light rounded-bottom">
+              Use the search bar at the top to enter your destination, then check the map 
+              for available spots. Available spaces appear in <span class="text-success">green</span>.
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="accordion-item mb-3 border-0">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed rounded shadow-sm" type="button" 
+                    data-bs-toggle="collapse" data-bs-target="#faq2"
+                    aria-expanded="false">
+              <i class="bi bi-clock-history me-2"></i> Can I see my parking history?
+            </button>
+          </h3>
+          <div id="faq2" class="accordion-collapse collapse" 
+               data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-light rounded-bottom">
+              Yes! Your past parking sessions are saved under "My Passes" on the home page.
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="accordion-item mb-3 border-0">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed rounded shadow-sm" type="button" 
+                    data-bs-toggle="collapse" data-bs-target="#faq3"
+                    aria-expanded="false">
+              <i class="bi bi-headset me-2"></i> How do I contact support?
+            </button>
+          </h3>
+          <div id="faq3" class="accordion-collapse collapse" 
+               data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-light rounded-bottom">
+              Use the "Contact Us" form below or email support@p4rk.com. 
+              We respond within 24 hours.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
   <!-- Google Maps JavaScript -->
   <script>
     let map;
     let userMarker;
     let searchMarker;
+    let parkingMarkers = []; // Array to hold parking location markers
     const defaultLocation = { lat: 40.0150, lng: -105.2705 }; // Boulder, CO
 
     // Initialize map with default location
@@ -254,6 +384,9 @@
         if (searchMarker) {
           searchMarker.setMap(null);
         }
+
+        // Clear existing parking markers
+        clearParkingMarkers();
 
         // For each place, get the location
         const place = places[0];
@@ -292,10 +425,13 @@
         }
 
         // Show success message
-        locationStatus.innerHTML = `<p class="text-success">Found: ${place.name}</p>`;
+        document.getElementById('locationStatus').innerHTML = `<p class="text-success">Found: ${place.name}</p>`;
         setTimeout(() => {
-          locationStatus.innerHTML = '';
+          document.getElementById('locationStatus').innerHTML = '';
         }, 3000);
+
+        // Find nearby parking locations
+        findNearbyParking(place.geometry.location);
       });
 
       // Try to get user's current location
@@ -308,6 +444,81 @@
       } else {
         console.error("Location button not found");
       }
+    }
+
+    // Clear all parking markers from the map
+    function clearParkingMarkers() {
+      for (let i = 0; i < parkingMarkers.length; i++) {
+        parkingMarkers[i].setMap(null);
+      }
+      parkingMarkers = [];
+    }
+
+    // Find nearby parking locations
+    function findNearbyParking(location) {
+      const locationStatus = document.getElementById('locationStatus');
+      locationStatus.innerHTML = '<p class="text-info"><i class="bi bi-hourglass-split"></i> Finding nearby parking...</p>';
+
+      const request = {
+        location: location,
+        radius: 1000, // Search within 1km radius
+        type: 'parking',
+        // rankBy: google.maps.places.RankBy.DISTANCE
+      };
+
+      const service = new google.maps.places.PlacesService(map);
+      
+      service.nearbySearch(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          // Clear previous parking markers
+          clearParkingMarkers();
+          
+          // Limit to 15 closest parking locations
+          const maxResults = Math.min(results.length, 15);
+          
+          for (let i = 0; i < maxResults; i++) {
+            const place = results[i];
+            createParkingMarker(place);
+          }
+          
+          locationStatus.innerHTML = `<p class="text-success"><i class="bi bi-check-circle"></i> Found ${maxResults} parking locations nearby</p>`;
+          setTimeout(() => {
+            locationStatus.innerHTML = '';
+          }, 3000);
+        } else {
+          locationStatus.innerHTML = `<p class="text-warning"><i class="bi bi-exclamation-triangle"></i> Could not find parking locations (${status})</p>`;
+          setTimeout(() => {
+            locationStatus.innerHTML = '';
+          }, 3000);
+        }
+      });
+    }
+
+    // Create a marker for a parking location
+    function createParkingMarker(place) {
+      const marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location,
+        title: place.name,
+        icon: {
+          url: "https://maps.google.com/mapfiles/ms/icons/green-dot.png"
+        }
+      });
+
+      // Add info window with parking details
+      let content = `<div><strong>${place.name || 'Parking'}</strong>`;
+      if (place.vicinity) {
+        content += `<br>${place.vicinity}`;
+      }
+      content += "</div>";
+      
+      const infoWindow = new google.maps.InfoWindow({ content });
+
+      marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+      });
+
+      parkingMarkers.push(marker);
     }
 
     // Get user's current location
@@ -356,9 +567,8 @@
 
             locationStatus.innerHTML = '<p class="text-success"><i class="bi bi-check-circle"></i> Location found!</p>';
 
-            // Fetch nearby parking locations
-            // TODO: Replace with actual API call to fetch parking locations
-            // fetchNearbyParkingSpots(userLocation);
+            // Find nearby parking locations
+            findNearbyParking(userLocation);
 
             setTimeout(() => {
               locationStatus.innerHTML = '';
@@ -399,209 +609,3 @@
   ></script>
 </body>
 </html>
-
-
-
-
-
-
-<!-- Promo Section -->
-
-<section class="promo-section py-5">
-  <div class="container">
-    <div class="row align-items-center">
-      <!-- Left Column - Images -->
-      <div class="col-lg-6">
-        <div class="image-stack">
-          <div class="image-stack__item image-stack__item--top">
-            <img src="/resources/img/P4RK1.jpeg" alt="picture 1" class="img-fluid rounded">
-          </div>
-
-
-      <div class="col-lg-6 ps-lg-5 mt-5 mt-lg-0">
-        <div class="feature-list mt-5">
-            <div class="feature-item mb-4">
-              <h3 class="promo heading2">
-                <span class="d-block display-3 fw-bold">SAVE TIME</span>
-                <p class="lead mt-4">Book a space in just a few easy clicks</p>
-                  
-              </h3>
-            </div>
-          
-        </div>
-      </div>
-  
-
-          
-          <div class="image-stack__item image-stack__item--bottom">
-            <img src="/resources/img/P4RK03.jpeg" alt="picture 3" class="img-fluid rounded">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Right Column - Text -->
-      <div class="col-lg-6 ps-lg-5 mt-5 mt-lg-0">
-        <div class="promo-content">
-          <h2 class="promo-heading">
-            <span class="d-block display-3 fw-bold">DISCOVER</span>
-            <span class="d-block display-3 fw-bold">AMAZING</span>
-            <span class="d-block display-1 fw-bold text-primary position-relative">
-              SPACES
-            </span>
-          </h2>
-          
-          <p class="lead mt-4">
-            Find parking anywhere, for now or for later<br>
-          </p>
-          
-          <div class="image-stack__item image-stack__item--middle">
-            <img src="/resources/img/P4RK3.jpeg" alt="picture 2" class="img-fluid rounded">
-          </div>
-            
-            <div class="feature-item">
-              <h3 class="promo heading3">
-              <span class="d-block display-3 fw-bold">DRIVE</span>
-              <span class="d-block display-3 fw-bold">ARRIVE</span>
-              <span class="d-block display-1 fw-bold text-primary position-relative">
-              & PARK
-            </span>
-              </h3>
-              <p class="mt-2">XYZ</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-<!-- Contact Form Section -->
-<section class="contact-section py-5" style="background-color: #5289c1;">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="contact-card shadow-sm p-4 p-md-5">
-          <h2 class="text-center mb-4">How Can We Help You?</h2>
-          <p class="text-center mb-5">
-            For all inquiries or to connect with us, simply fill out our contact form and receive a prompt response 
-            from our dedicated customer service representative. Rest assured, we will be in touch within 24 hours.
-          </p>
-          
-          <form>
-            <div class="row g-3">
-              <!-- Email -->
-              <div class="col-md-6">
-                <label for="email" class="form-label">Your Email</label>
-                <input type="email" class="form-control" id="email" required>
-              </div>
-              
-              <!-- Name -->
-              <div class="col-md-6">
-                <label for="name" class="form-label">Your Name</label>
-                <input type="text" class="form-control" id="name" required>
-              </div>
-              
-              <!-- Subject -->
-              <div class="col-12">
-                <label for="subject" class="form-label">Subject</label>
-                <input type="text" class="form-control" id="subject" required>
-              </div>
-              
-              <!-- Message -->
-              <div class="col-12">
-                <label for="message" class="form-label">Message</label>
-                <textarea class="form-control" id="message" rows="5" required></textarea>
-              </div>
-              
-              <!-- Verification Code -->
-              <div class="col-12">
-                <p class="mb-2">Enter this code: <strong>1204</strong></p>
-                <input type="text" class="form-control w-25" placeholder="Enter code" required>
-              </div>
-              
-              <!-- Submit Button -->
-              <div class="col-12 text-center mt-4">
-                <button type="submit" class="btn btn-primary px-4 py-2">SEND</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  
-
-
-<!-- FAQ Section -->
-<section class="faq-section py-5">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="faq-heading">
-        <i class="bi bi-question-circle-fill me-2"></i>FAQ
-      </h2>
-      <p class="text-muted">Common questions about parking with us</p>
-    </div>
-    
-    <div class="accordion" id="faqAccordion">
-      <!-- Question 1 -->
-      <div class="accordion-item mb-3 border-0">
-        <h3 class="accordion-header">
-          <button class="accordion-button collapsed rounded shadow-sm" type="button" 
-                  data-bs-toggle="collapse" data-bs-target="#faq1"
-                  aria-expanded="false">
-            <i class="bi bi-search me-2"></i> How do I find parking locations?
-          </button>
-        </h3>
-        <div id="faq1" class="accordion-collapse collapse" 
-             data-bs-parent="#faqAccordion">
-          <div class="accordion-body bg-light rounded-bottom">
-            Use the search bar at the top to enter your destination, then check the map 
-            for available spots. Available spaces appear in <span class="text-success">green</span>.
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 2 -->
-      <div class="accordion-item mb-3 border-0">
-        <h3 class="accordion-header">
-          <button class="accordion-button collapsed rounded shadow-sm" type="button" 
-                  data-bs-toggle="collapse" data-bs-target="#faq2"
-                  aria-expanded="false">
-            <i class="bi bi-clock-history me-2"></i> Can I see my parking history?
-          </button>
-        </h3>
-        <div id="faq2" class="accordion-collapse collapse" 
-             data-bs-parent="#faqAccordion">
-          <div class="accordion-body bg-light rounded-bottom">
-            Yes! Your past parking sessions are saved under "My Passes" on the home page.
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 3 -->
-      <div class="accordion-item mb-3 border-0">
-        <h3 class="accordion-header">
-          <button class="accordion-button collapsed rounded shadow-sm" type="button" 
-                  data-bs-toggle="collapse" data-bs-target="#faq3"
-                  aria-expanded="false">
-            <i class="bi bi-headset me-2"></i> How do I contact support?
-          </button>
-        </h3>
-        <div id="faq3" class="accordion-collapse collapse" 
-             data-bs-parent="#faqAccordion">
-          <div class="accordion-body bg-light rounded-bottom">
-            Use the "Contact Us" form below or email support@p4rk.com. 
-            We respond within 24 hours.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
