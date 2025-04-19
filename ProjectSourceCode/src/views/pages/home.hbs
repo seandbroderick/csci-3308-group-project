@@ -218,6 +218,7 @@
     let map;
     let userMarker;
     let searchMarker;
+    let parkingMarkers = []; // Array to hold parking location markers
     const defaultLocation = { lat: 40.0150, lng: -105.2705 }; // Boulder, CO
 
     // Initialize map with default location
@@ -254,6 +255,9 @@
         if (searchMarker) {
           searchMarker.setMap(null);
         }
+
+        // Clear existing parking markers
+        clearParkingMarkers();
 
         // For each place, get the location
         const place = places[0];
@@ -296,6 +300,9 @@
         setTimeout(() => {
           locationStatus.innerHTML = '';
         }, 3000);
+
+        // Find nearby parking locations
+        findNearbyParking(place.geometry.location);
       });
 
       // Try to get user's current location
@@ -308,6 +315,81 @@
       } else {
         console.error("Location button not found");
       }
+    }
+
+    // Clear all parking markers from the map
+    function clearParkingMarkers() {
+      for (let i = 0; i < parkingMarkers.length; i++) {
+        parkingMarkers[i].setMap(null);
+      }
+      parkingMarkers = [];
+    }
+
+    // Find nearby parking locations
+    function findNearbyParking(location) {
+      const locationStatus = document.getElementById('locationStatus');
+      locationStatus.innerHTML = '<p class="text-info"><i class="bi bi-hourglass-split"></i> Finding nearby parking...</p>';
+
+      const request = {
+        location: location,
+        radius: 1000, // Search within 1km radius
+        type: 'parking',
+        rankBy: google.maps.places.RankBy.DISTANCE
+      };
+
+      const service = new google.maps.places.PlacesService(map);
+      
+      service.nearbySearch(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          // Clear previous parking markers
+          clearParkingMarkers();
+          
+          // Limit to 15 closest parking locations
+          const maxResults = Math.min(results.length, 15);
+          
+          for (let i = 0; i < maxResults; i++) {
+            const place = results[i];
+            createParkingMarker(place);
+          }
+          
+          locationStatus.innerHTML = `<p class="text-success"><i class="bi bi-check-circle"></i> Found ${maxResults} parking locations nearby</p>`;
+          setTimeout(() => {
+            locationStatus.innerHTML = '';
+          }, 3000);
+        } else {
+          locationStatus.innerHTML = `<p class="text-warning"><i class="bi bi-exclamation-triangle"></i> Could not find parking locations (${status})</p>`;
+          setTimeout(() => {
+            locationStatus.innerHTML = '';
+          }, 3000);
+        }
+      });
+    }
+
+    // Create a marker for a parking location
+    function createParkingMarker(place) {
+      const marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location,
+        title: place.name,
+        icon: {
+          url: "https://maps.google.com/mapfiles/ms/icons/green-dot.png"
+        }
+      });
+
+      // Add info window with parking details
+      let content = `<div><strong>${place.name || 'Parking'}</strong>`;
+      if (place.vicinity) {
+        content += `<br>${place.vicinity}`;
+      }
+      content += "</div>";
+      
+      const infoWindow = new google.maps.InfoWindow({ content });
+
+      marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+      });
+
+      parkingMarkers.push(marker);
     }
 
     // Get user's current location
@@ -356,9 +438,8 @@
 
             locationStatus.innerHTML = '<p class="text-success"><i class="bi bi-check-circle"></i> Location found!</p>';
 
-            // Fetch nearby parking locations
-            // TODO: Replace with actual API call to fetch parking locations
-            // fetchNearbyParkingSpots(userLocation);
+            // Find nearby parking locations
+            findNearbyParking(userLocation);
 
             setTimeout(() => {
               locationStatus.innerHTML = '';
