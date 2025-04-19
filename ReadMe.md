@@ -129,7 +129,7 @@ docker compose up</code></pre>
 <h2>LINK TO APPLICATION</h2>
 
 <p>The P4rk application will be available at:
-<a href="https://csci-3308-group-project.onrender.com" target="blank_">https://csci-3308-group-project.onrender.com</a></p>
+<a href="https://csci-3308-group-project.onrender.com" target="_blank">https://csci-3308-group-project.onrender.com</a></p>
 
 <hr>
 
