@@ -112,6 +112,7 @@ app.post('/register', async (req, res) => {
 
 app.get('/login', (req, res) => {
   const reason = req.query.reason || null;
+  let message = null;
   switch(reason) {
     case "not_logged_in":
       message = "You must be logged in to access this page.";
