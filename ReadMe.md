@@ -20,7 +20,7 @@
 <h2>CONTRIBUTORS</h2>
 
 <ul>
-  <li>Timothy Bermon (<a href="https://github.com/timberman05">@timberman05</a>) - tibe9793@colorado.edu</li>
+  <li>Timothy Berman (<a href="https://github.com/timberman05">@timberman05</a>) - tibe9793@colorado.edu</li>
   <li>Sean Broderick (<a href="https://github.com/seandbroderick">@seandbroderick</a>) - sebr2861@colorado.edu</li>
   <li>Israt Jaman (<a href="https://github.com/israt-jaman">@israt-jaman</a>) - israt.jaman@colorado.edu</li>
   <li>Logan Kernan (<a href="https://github.com/loke1941">@loke1941</a>) - loke1941@colorado.edu</li>
